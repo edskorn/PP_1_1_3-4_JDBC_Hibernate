@@ -15,7 +15,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void createUsersTable() {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = null;
-        String sql = "CREATE TABLE Users (UserID BIGINT NOT NULL AUTO_INCREMENT, Name varchar(255), LastName varchar(255), Age TINYINT, PRIMARY KEY (UserID))";
+        String sql = "CREATE TABLE Users (id BIGINT NOT NULL AUTO_INCREMENT, Name varchar(255), LastName varchar(255), Age TINYINT, PRIMARY KEY (id))";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -29,7 +29,6 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             CloseQuietly(preparedStatement);
             CloseQuietly(connection);
         }
-
     }
 
     public void dropUsersTable() {
@@ -76,7 +75,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void removeUserById(long id) {
         Connection connection = getConnection();
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE FROM Users WHERE UserID=?";
+        String sql = "DELETE FROM Users WHERE id=?";
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
@@ -97,14 +96,15 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         List<User> result = new LinkedList<>();
         Connection connection = getConnection();
         Statement stmt = null;
+        ResultSet rs = null;
         String sql = "SELECT * FROM Users";
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 User usr = new User();
-                usr.setId(rs.getLong("UserID"));
+                usr.setId(rs.getLong("id"));
                 usr.setName(rs.getString("Name"));
                 usr.setLastName(rs.getString("Lastname"));
                 usr.setAge(rs.getByte("Age"));
@@ -119,6 +119,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         } finally {
             CloseQuietly(stmt);
             CloseQuietly(connection);
+            CloseQuietly(rs);
         }
 
         return result;
