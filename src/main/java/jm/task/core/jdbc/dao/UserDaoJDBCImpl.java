@@ -7,13 +7,13 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserDaoJDBCImpl extends Util implements UserDao {
+public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         PreparedStatement preparedStatement = null;
         String sql = "CREATE TABLE Users (id BIGINT NOT NULL AUTO_INCREMENT, Name varchar(255), LastName varchar(255), Age TINYINT, PRIMARY KEY (id))";
 
@@ -23,16 +23,17 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("Table created");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("Table didn't create");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(preparedStatement);
-            CloseQuietly(connection);
+            Util.CloseQuietly(preparedStatement);
+            Util.CloseQuietly(connection);
         }
     }
 
     public void dropUsersTable() {
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         PreparedStatement preparedStatement = null;
         String sql = "DROP TABLE Users";
         try {
@@ -41,16 +42,17 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("Table dropped");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("Table didn't drop");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(preparedStatement);
-            CloseQuietly(connection);
+            Util.CloseQuietly(preparedStatement);
+            Util.CloseQuietly(connection);
         }
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO Users (Name, Lastname, Age) VALUES (?,?,?)";
         try {
@@ -64,16 +66,17 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("User didn't add");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(preparedStatement);
-            CloseQuietly(connection);
+            Util.CloseQuietly(preparedStatement);
+            Util.CloseQuietly(connection);
         }
     }
 
     public void removeUserById(long id) {
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         PreparedStatement preparedStatement = null;
         String sql = "DELETE FROM Users WHERE id=?";
         try {
@@ -84,17 +87,18 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("User deleted");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("User didn't delete");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(preparedStatement);
-            CloseQuietly(connection);
+            Util.CloseQuietly(preparedStatement);
+            Util.CloseQuietly(connection);
         }
     }
 
     public List<User> getAllUsers() {
         List<User> result = new LinkedList<>();
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM Users";
@@ -114,19 +118,20 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("List Users");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("List Users error");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(stmt);
-            CloseQuietly(connection);
-            CloseQuietly(rs);
+            Util.CloseQuietly(stmt);
+            Util.CloseQuietly(connection);
+            Util.CloseQuietly(rs);
         }
 
         return result;
     }
 
     public void cleanUsersTable() {
-        Connection connection = getConnection();
+        Connection connection = Util.getConnection();
         PreparedStatement preparedStatement = null;
         String sql = "TRUNCATE TABLE Users";
         try {
@@ -135,11 +140,12 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             connection.commit();
             System.out.println("Users cleared");
         } catch (SQLException e) {
+            Util.RollbackQuietly(connection);
             System.out.println("Users didn't clear");
             //throw new RuntimeException(e);
         } finally {
-            CloseQuietly(preparedStatement);
-            CloseQuietly(connection);
+            Util.CloseQuietly(preparedStatement);
+            Util.CloseQuietly(connection);
         }
     }
 }

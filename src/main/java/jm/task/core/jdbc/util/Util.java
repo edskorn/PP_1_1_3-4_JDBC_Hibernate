@@ -63,7 +63,7 @@ public class Util {
         return sessionFactory;
     }
 
-    public void CloseQuietly(Connection conn) {
+    public static void CloseQuietly(Connection conn) {
         try {
             conn.close();
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class Util {
         }
     }
 
-    public void CloseQuietly(Statement stmt) {
+    public static void CloseQuietly(Statement stmt) {
         try {
             stmt.close();
         } catch (Exception e) {
@@ -79,9 +79,17 @@ public class Util {
         }
     }
 
-    public void CloseQuietly(ResultSet rs) {
+    public static void CloseQuietly(ResultSet rs) {
         try {
             rs.close();
+        } catch (Exception e) {
+            //
+        }
+    }
+
+    public static void RollbackQuietly(Connection conn) {
+        try {
+            conn.rollback();
         } catch (Exception e) {
             //
         }
