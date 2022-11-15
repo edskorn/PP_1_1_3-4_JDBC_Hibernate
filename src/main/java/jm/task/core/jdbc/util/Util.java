@@ -65,36 +65,6 @@ public class Util {
         return sessionFactory;
     }
 
-    public static void closeQuietly(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (Exception e) {
-                //
-            }
-        }
-    }
-
-    public static void closeQuietly(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (Exception e) {
-                //
-            }
-        }
-    }
-
-    public static void closeQuietly(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (Exception e) {
-                //
-            }
-        }
-    }
-
     public static void closeQuietly(Session session) {
         if (session != null) {
             try {
