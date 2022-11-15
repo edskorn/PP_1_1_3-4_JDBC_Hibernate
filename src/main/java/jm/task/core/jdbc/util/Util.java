@@ -23,11 +23,10 @@ public class Util {
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            //Class.forName(DB_DRIVER);
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             connection.setAutoCommit(false);
             System.out.println("Connection OK");
-        } catch (SQLException /*| ClassNotFoundException*/ e) {
+        } catch (SQLException e) {
             System.out.println("Connection FAIL");
         }
 
@@ -66,7 +65,7 @@ public class Util {
         return sessionFactory;
     }
 
-    public static void CloseQuietly(Connection conn) {
+    public static void closeQuietly(Connection conn) {
         if (conn != null) {
             try {
                 conn.close();
@@ -76,7 +75,7 @@ public class Util {
         }
     }
 
-    public static void CloseQuietly(Statement stmt) {
+    public static void closeQuietly(Statement stmt) {
         if (stmt != null) {
             try {
                 stmt.close();
@@ -86,7 +85,7 @@ public class Util {
         }
     }
 
-    public static void CloseQuietly(ResultSet rs) {
+    public static void closeQuietly(ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -96,7 +95,7 @@ public class Util {
         }
     }
 
-    public static void CloseQuietly(Session session) {
+    public static void closeQuietly(Session session) {
         if (session != null) {
             try {
                 session.close();
@@ -106,7 +105,7 @@ public class Util {
         }
     }
 
-    public static void RollbackQuietly(Connection conn) {
+    public static void rollbackQuietly(Connection conn) {
         if (conn != null) {
             try {
                 conn.rollback();
@@ -117,7 +116,7 @@ public class Util {
         }
     }
 
-    public static void RollbackQuietly(Transaction transaction) {
+    public static void rollbackQuietly(Transaction transaction) {
         if (transaction != null) {
             try {
                 transaction.rollback();

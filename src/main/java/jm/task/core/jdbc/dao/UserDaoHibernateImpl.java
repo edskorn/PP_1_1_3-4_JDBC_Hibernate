@@ -24,9 +24,9 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             tx1.commit();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
     }
 
@@ -39,9 +39,9 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             tx1.commit();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
     }
 
@@ -53,9 +53,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(new User(name, lastName, age));
             tx1.commit();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
     }
 
@@ -68,9 +68,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("\n>>> Student with id = " + id + " is successfully deleted!\n");
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
     }
 
@@ -81,9 +81,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session = Util.getSessionFactory().openSession();
             result = (List<User>) session.createQuery("From User").list();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
         return result;
     }
@@ -97,9 +97,9 @@ public class UserDaoHibernateImpl implements UserDao {
             query.executeUpdate();
             tx1.commit();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
     }
 
@@ -111,9 +111,9 @@ public class UserDaoHibernateImpl implements UserDao {
             user = session.get(User.class, id);
             transaction.commit();
         } catch (Exception sqlException) {
-            Util.RollbackQuietly(session.getTransaction());
+            Util.rollbackQuietly(session.getTransaction());
         } finally {
-            Util.CloseQuietly(session);
+            Util.closeQuietly(session);
         }
         return user;
     }

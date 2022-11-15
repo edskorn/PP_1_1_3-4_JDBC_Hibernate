@@ -23,10 +23,10 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("Table created");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("Table didn't create");
         } finally {
-            Util.CloseQuietly(preparedStatement);
+            Util.closeQuietly(preparedStatement);
         }
     }
 
@@ -39,10 +39,10 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("Table dropped");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("Table didn't drop");
         } finally {
-            Util.CloseQuietly(preparedStatement);
+            Util.closeQuietly(preparedStatement);
         }
     }
 
@@ -60,10 +60,10 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("User didn't add");
         } finally {
-            Util.CloseQuietly(preparedStatement);
+            Util.closeQuietly(preparedStatement);
         }
     }
 
@@ -78,10 +78,10 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("User deleted");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("User didn't delete");
         } finally {
-            Util.CloseQuietly(preparedStatement);
+            Util.closeQuietly(preparedStatement);
         }
     }
 
@@ -106,11 +106,11 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("List Users");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("List Users error");
         } finally {
-            Util.CloseQuietly(stmt);
-            Util.CloseQuietly(rs);
+            Util.closeQuietly(stmt);
+            Util.closeQuietly(rs);
         }
 
         return result;
@@ -125,10 +125,10 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
             System.out.println("Users cleared");
         } catch (SQLException e) {
-            Util.RollbackQuietly(connection);
+            Util.rollbackQuietly(connection);
             System.out.println("Users didn't clear");
         } finally {
-            Util.CloseQuietly(preparedStatement);
+            Util.closeQuietly(preparedStatement);
         }
     }
 }
