@@ -1,6 +1,8 @@
 package jm.task.core.jdbc.util;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
@@ -44,6 +46,7 @@ public class Util {
         settings.put(Environment.PASS, DB_PASSWORD);
         settings.put(Environment.DIALECT, DB_DIALECT);
         settings.put(Environment.SHOW_SQL, "true");
+        settings.put(Environment.FORMAT_SQL, "true");
         settings.put(Environment.HBM2DDL_AUTO, "");
 
         try {
@@ -93,12 +96,34 @@ public class Util {
         }
     }
 
+    public static void CloseQuietly(Session session) {
+        if (session != null) {
+            try {
+                session.close();
+            } catch (Exception e) {
+                //
+            }
+        }
+    }
+
     public static void RollbackQuietly(Connection conn) {
         if (conn != null) {
             try {
                 conn.rollback();
+                System.out.println("Transaction is rolled back");
             } catch (Exception e) {
-                //
+                System.out.println("Transaction doesn't rolled back");
+            }
+        }
+    }
+
+    public static void RollbackQuietly(Transaction transaction) {
+        if (transaction != null) {
+            try {
+                transaction.rollback();
+                System.out.println("Transaction is rolled back");
+            } catch (Exception e) {
+                System.out.println("Transaction doesn't rolled back");
             }
         }
     }
