@@ -64,34 +64,42 @@ public class Util {
     }
 
     public static void CloseQuietly(Connection conn) {
-        try {
-            conn.close();
-        } catch (Exception e) {
-            //
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (Exception e) {
+                //
+            }
         }
     }
 
     public static void CloseQuietly(Statement stmt) {
-        try {
-            stmt.close();
-        } catch (Exception e) {
-            //
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+                //
+            }
         }
     }
 
     public static void CloseQuietly(ResultSet rs) {
-        try {
-            rs.close();
-        } catch (Exception e) {
-            //
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (Exception e) {
+                //
+            }
         }
     }
 
     public static void RollbackQuietly(Connection conn) {
-        try {
-            conn.rollback();
-        } catch (Exception e) {
-            //
+        if (conn != null) {
+            try {
+                conn.rollback();
+            } catch (Exception e) {
+                //
+            }
         }
     }
 }
